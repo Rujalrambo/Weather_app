@@ -1,3 +1,5 @@
+```Normal If-else error handling method
+
 const apiKey = "d781398a86daf705c94504adb20400cb";
 const apiUrl =
   "https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
@@ -7,16 +9,19 @@ const searchBtn = document.querySelector(".search button");
 const weatherIcon = document.querySelector(".weather-icon");
 
 async function checkWeather(city) {
-  try {
+
     const response = await fetch(apiUrl + city + `&appid=${apiKey}`);
 
     // if (!response.ok) {
     //   throw new Error("City not found");
     // }
 
+    if (response.status == 404) {
+     
+    } else {
       const data = await response.json();
 
-      // console.log(data);
+      console.log(data);
       document.querySelector(".city").innerHTML = data.name;
       document.querySelector(".temp").innerHTML =
         Math.round(data.main.temp) + "°C";
@@ -39,14 +44,14 @@ async function checkWeather(city) {
 
       document.querySelector(".weather").style.display = "block";
       document.querySelector(".error").style.display = "none";
+    }
   
-  } catch (error) {
-    // alert(error.message);
-    document.querySelector(".error").style.display = "block";
-    document.querySelector(".weather").style.display = "none";
+    
   }
-}
+
 
 searchBtn.addEventListener("click", () => {
   checkWeather(searchBox.value);
 });
+
+```
